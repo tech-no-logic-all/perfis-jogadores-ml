@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Knn {
@@ -10,7 +11,12 @@ public class Knn {
     }
 
     //talvez private? nao sei
-    public double calcularDistanciaEuclidiana(double[] p, double[] q) {
+    public double calcularDistanciaEuclidiana(double[] p, double[] q) throws IllegalArgumentException {
+
+        if (p.length != q.length) {
+            throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho.");
+        }
+
         double[] temporario = new double[p.length];
 
         for (int i = 0; i < p.length; i++) {
@@ -24,5 +30,18 @@ public class Knn {
         }
         
         return Math.sqrt(soma);
+    }
+
+    public String prever(double[] caracteristicas) {
+
+        List<Double> distancias = new ArrayList<>();
+
+        for(Jogador jogador : dadosTreinamento) {
+            distancias.add(calcularDistanciaEuclidiana(caracteristicas, jogador.getCaracteristicas()));
+            //testezinho
+            System.out.println("distancia: " + distancias.get(distancias.size() - 1) + " para o jogador: " + jogador.getApelido());
+        }
+
+        return "classe prevista: ?";
     }
 }

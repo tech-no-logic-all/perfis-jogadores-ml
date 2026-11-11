@@ -1,13 +1,20 @@
-import java.sql.*;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        //testezinho da distancia euclidiana
-        Knn knn = new Knn(3, null);
+        List<Jogador> jogadores = List.of(
+                new Jogador(1, "jogador1", 1.0, 1, 1.0, 1.0, Perfil.CASUAL),
+                new Jogador(2, "jogador2", 3.0, 3, 3.0, 3.0, Perfil.RANQUEADO)
+        );
 
-        System.out.println(knn.calcularDistanciaEuclidiana(new double[]{4, 5, 6}, new double[]{1, 2, 3}));
+        //testezinho da distancia euclidiana
+        Knn knn = new Knn(1, jogadores);
+
+        knn.prever(new double[]{0.0, 0, 0.0, 0.0});
 
         /*try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
              Statement s = c.createStatement()) {
