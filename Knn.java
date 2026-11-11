@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class Knn {
-    int k;
-    List<Jogador> dadosTreinamento;
+    private int k;
+    private List<Jogador> dadosTreinamento;
 
     public Knn(int k, List<Jogador> dadosTreinamento) {
         this.k = k;

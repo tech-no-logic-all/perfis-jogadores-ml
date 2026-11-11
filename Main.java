@@ -1,11 +1,15 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.*;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
+
+        //testezinho da distancia euclidiana
+        Knn knn = new Knn(3, null);
+
+        System.out.println(knn.calcularDistanciaEuclidiana(new double[]{4, 5, 6}, new double[]{1, 2, 3}));
+
+        /*try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
              Statement s = c.createStatement()) {
             for (String linha : Files.readAllLines(Path.of("jogadores.sql")))
                 if (!linha.isBlank() && !linha.startsWith("--")) s.execute(linha);
@@ -16,7 +20,7 @@ public class Main {
                     + "ROUND(AVG(gasto_mensal),2), ROUND(AVG(taxa_vitoria),2) FROM jogador GROUP BY perfil ORDER BY perfil");
             consulta(s, "(c)", "SELECT apelido, perfil, taxa_vitoria FROM jogador "
                     + "WHERE horas_semana > 20 AND taxa_vitoria > 55 ORDER BY taxa_vitoria DESC");
-        }
+        }*/
     }
 
     static void consulta(Statement s, String titulo, String sql) throws SQLException {
