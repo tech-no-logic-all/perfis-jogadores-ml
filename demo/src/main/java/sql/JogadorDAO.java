@@ -1,3 +1,8 @@
+package sql;
+
+import modelo.Jogador;
+import modelo.Perfil;
+
 import java.util.List;
 import java.util.Optional;
 

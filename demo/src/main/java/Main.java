@@ -1,3 +1,7 @@
+import modelo.Jogador;
+import modelo.Perfil;
+import knn.Knn;
+import sql.JogadorDAOJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
