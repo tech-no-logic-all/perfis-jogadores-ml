@@ -1,3 +1,7 @@
+package kmeans;
+
+import modelo.Perfil;
+
 import java.util.Locale;
 
 /** Resultado imutável da avaliação, sem escolher ou modificar o treinamento. */

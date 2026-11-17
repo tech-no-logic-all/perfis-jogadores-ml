@@ -1,3 +1,8 @@
+package sql;
+
+import modelo.Jogador;
+import modelo.Perfil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

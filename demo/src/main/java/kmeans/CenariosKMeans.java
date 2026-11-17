@@ -1,3 +1,6 @@
+package kmeans;
+
+
 /** Entradas para a Pessoa 2; perfis ficam apenas no conjunto para avaliação. */
 public final class CenariosKMeans {
     private final ConjuntoDadosJogadores conjunto;

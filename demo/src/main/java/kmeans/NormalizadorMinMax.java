@@ -1,3 +1,6 @@
+package kmeans;
+
+
 /** No K-Means ajuste com todos os dados; no KNN, somente com o treino.
  * Colunas constantes transformam em zero e sua inversa retorna a constante. */
 public final class NormalizadorMinMax {

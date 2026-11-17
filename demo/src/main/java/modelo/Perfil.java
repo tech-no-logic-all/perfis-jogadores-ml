@@ -1,3 +1,6 @@
+package modelo;
+
+
 /** Perfil de um jogador: o rótulo que o KNN prevê e que usamos para avaliar o K-Means. */
 public enum Perfil {
     CASUAL("Joga de vez em quando, por diversão"),

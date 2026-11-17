@@ -1,3 +1,7 @@
+package kmeans;
+
+import modelo.Perfil;
+
 public final class AvaliadorKMeans {
     public AvaliacaoKMeans avaliar(ResultadoKMeans resultado, CenariosKMeans cenarios, boolean normalizado) {
         if (resultado == null || cenarios == null) throw new IllegalArgumentException("Resultado e cenários obrigatórios.");

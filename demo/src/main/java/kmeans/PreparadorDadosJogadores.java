@@ -1,3 +1,9 @@
+package kmeans;
+
+import modelo.Jogador;
+import modelo.Perfil;
+import sql.JogadorDAO;
+
 import java.util.HashSet;
 import java.util.List;
 

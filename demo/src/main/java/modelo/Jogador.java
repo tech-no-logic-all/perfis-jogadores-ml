@@ -1,3 +1,6 @@
+package modelo;
+
+
 import java.util.Objects;
 
 /** Jogador da plataforma (classe imutável). As quatro medidas numéricas são as características dos algoritmos. */

@@ -1,3 +1,6 @@
+package kmeans;
+
+
 
 public interface ResultadoKMeans {
     int[] getGrupos();

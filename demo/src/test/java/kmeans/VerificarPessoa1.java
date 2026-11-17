@@ -1,3 +1,8 @@
+package kmeans;
+
+import modelo.Jogador;
+import modelo.Perfil;
+import sql.JogadorDAO;
 import java.nio.file.*;
 import java.sql.*;
 import java.util.*;

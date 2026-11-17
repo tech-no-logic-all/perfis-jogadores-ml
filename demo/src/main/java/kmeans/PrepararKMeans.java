@@ -1,3 +1,8 @@
+package kmeans;
+
+import modelo.Perfil;
+import sql.JogadorDAOJdbc;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 

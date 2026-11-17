@@ -1,3 +1,8 @@
+package kmeans;
+
+import modelo.Jogador;
+import modelo.Perfil;
+
 import java.util.List;
 
 /** Mantém a mesma ordem da consulta, sem expor a matriz original. */

@@ -11,7 +11,7 @@ mvn package
 java -cp target/classes Main
 ```
 
-As classes Java ficam em `src/main/java/` e o script do banco H2 em `src/main/resources/jogadores.sql`. O Maven grava a compilação em `target/`. A pasta `bin/` está disponível para compilação pela IDE.
+As classes Java ficam em `src/main/java/` e o script do banco H2 em `src/main/resources/sql/jogadores.sql`. O Maven grava a compilação em `target/`. A pasta `bin/` está disponível para compilação pela IDE.
 
 ## K-Means: partes da Pessoa 1
 
@@ -24,3 +24,22 @@ Documentação técnica organizada por parte:
 5. [Verificações e execução](demo/docs/05-verificacoes.md)
 
 O código usa classes, arrays, listas, laços e condicionais. O algoritmo e a seleção de sementes são da Pessoa 2. Esta documentação explica o código; não inclui o relatório escolar. O pom.xml atual exige JDK 25.
+
+## Organização dos pacotes
+
+```text
+demo/src/
+  main/
+    java/
+      Main.java          # Entrada do teste de KNN
+      modelo/            # Jogador e Perfil, compartilhados
+      sql/               # Interface DAO e implementação JDBC
+      knn/               # Algoritmo KNN
+      kmeans/            # Preparação, normalização, avaliação e gráfico
+    resources/
+      sql/jogadores.sql  # Script de criação e carga do banco
+  test/
+    java/kmeans/         # Verificações da Pessoa 1
+```
+
+As declarações package acompanham as pastas. Classes de outros pacotes são usadas por import. O Main continua no pacote padrão. Para executar a preparação, use kmeans.PrepararKMeans; para as verificações, kmeans.VerificarPessoa1. Os comandos completos estão na documentação de verificações.
