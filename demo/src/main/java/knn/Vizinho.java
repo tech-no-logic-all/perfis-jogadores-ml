@@ -1,9 +1,11 @@
-//classe auxiliar pro KNN, a interface eh pra implementar um algoritmo de ordenacao com
-//a biblioteca
+package knn;
 
+import modelo.Jogador;
+
+/** Classe auxiliar que associa um jogador à sua distância da entrada analisada. */
 public class Vizinho implements Comparable<Vizinho> {
-    Jogador jogador;
-    double distancia;
+    private final Jogador jogador;
+    private final double distancia;
 
     public Vizinho(Jogador jogador, double distancia) {
         this.jogador = jogador;

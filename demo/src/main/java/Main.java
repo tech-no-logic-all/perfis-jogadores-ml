@@ -1,32 +1,34 @@
-import modelo.Jogador;
-import modelo.Perfil;
-import knn.Knn;
-import sql.JogadorDAOJdbc;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
+import modelo.Jogador;
+import sql.JogadorDAOJdbc;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        List<Jogador> jogadores = List.of(
-                new Jogador(1, "jogador1", 3.0, 3, 3.0, 3.0, Perfil.CASUAL),
-                new Jogador(2, "jogador2", 1.0, 1, 1.0, 1.0, Perfil.RANQUEADO),
-                new Jogador(3, "jogador3", 6.0, 6, 6.0, 6.0, Perfil.REGULAR)
-        );
+        List<Jogador> jogadores;
+        List<Jogador> copiaJogadores;
 
-        //testezinho da distancia euclidiana
-        Knn knn = new Knn(1, jogadores);
-
-        Perfil perfil = knn.prever(new double[]{0.0, 0, 0.0, 0.0});
-
-        System.out.println("Perfil previsto: " + perfil + " - " + perfil.getDescricao());
-
-        /*try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
+        try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
              Statement s = c.createStatement()) {
-            for (String linha : Files.readAllLines(Path.of("jogadores.sql")))
-                if (!linha.isBlank() && !linha.startsWith("--")) s.execute(linha);
+            try (BufferedReader leitor = new BufferedReader(new InputStreamReader(
+                    Main.class.getResourceAsStream("/sql/jogadores.sql"), StandardCharsets.UTF_8))) {
+                String linha;
+                while ((linha = leitor.readLine()) != null) {
+                    if (!linha.isBlank() && !linha.startsWith("--")) s.execute(linha);
+                }
+            }
 
             System.out.println("Linhas (via DAO): " + new JogadorDAOJdbc(c).listarTodos().size());
             consulta(s, "(a)", "SELECT perfil, COUNT(*) FROM jogador GROUP BY perfil ORDER BY perfil");
@@ -34,7 +36,20 @@ public class Main {
                     + "ROUND(AVG(gasto_mensal),2), ROUND(AVG(taxa_vitoria),2) FROM jogador GROUP BY perfil ORDER BY perfil");
             consulta(s, "(c)", "SELECT apelido, perfil, taxa_vitoria FROM jogador "
                     + "WHERE horas_semana > 20 AND taxa_vitoria > 55 ORDER BY taxa_vitoria DESC");
-        }*/
+
+            jogadores = new JogadorDAOJdbc(c).listarTodos();
+            List<Jogador> embaralhados = new ArrayList<>(jogadores);
+            Collections.shuffle(embaralhados, new Random(42)); //embaralha com uma semente fixa para que toda vez que a gente rode, de o msm resultado
+
+            List<Jogador> treino = new ArrayList<>(embaralhados.subList(0, 90));
+            List<Jogador> validacao = new ArrayList<>(embaralhados.subList(90, 120));
+            List<Jogador> teste = new ArrayList<>(embaralhados.subList(120, 150));
+
+            Knn knn = new Knn(3, jogadores);
+
+            Perfil perfilPredito = knn.prever(new double[]{10, 30, 50, 48});
+            System.out.println("Perfil predito: " + perfilPredito);
+        }
     }
 
     static void consulta(Statement s, String titulo, String sql) throws SQLException {

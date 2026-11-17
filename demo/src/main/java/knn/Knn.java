@@ -1,6 +1,7 @@
 package knn;
 
 import modelo.Jogador;
+import modelo.Perfil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -95,6 +96,6 @@ public class Knn {
             return vizinhos.get(0).getJogador().getPerfil();
         }
 
-        throw new PrevisaoImpossivelException();
+        throw new IllegalStateException("Não foi possível prever o perfil.");
     }
 }
