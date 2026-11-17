@@ -7,14 +7,17 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         List<Jogador> jogadores = List.of(
-                new Jogador(1, "jogador1", 1.0, 1, 1.0, 1.0, Perfil.CASUAL),
-                new Jogador(2, "jogador2", 3.0, 3, 3.0, 3.0, Perfil.RANQUEADO)
+                new Jogador(1, "jogador1", 3.0, 3, 3.0, 3.0, Perfil.CASUAL),
+                new Jogador(2, "jogador2", 1.0, 1, 1.0, 1.0, Perfil.RANQUEADO),
+                new Jogador(3, "jogador3", 6.0, 6, 6.0, 6.0, Perfil.REGULAR)
         );
 
         //testezinho da distancia euclidiana
         Knn knn = new Knn(1, jogadores);
 
-        knn.prever(new double[]{0.0, 0, 0.0, 0.0});
+        Perfil perfil = knn.prever(new double[]{0.0, 0, 0.0, 0.0});
+
+        System.out.println("Perfil previsto: " + perfil + " - " + perfil.getDescricao());
 
         /*try (Connection c = DriverManager.getConnection("jdbc:h2:mem:jogos");
              Statement s = c.createStatement()) {

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Knn {
@@ -32,16 +33,64 @@ public class Knn {
         return Math.sqrt(soma);
     }
 
-    public String prever(double[] caracteristicas) {
+    public Perfil prever(double[] caracteristicas) {
 
-        List<Double> distancias = new ArrayList<>();
+        List<Vizinho> vizinhos = new ArrayList<>();
 
         for(Jogador jogador : dadosTreinamento) {
-            distancias.add(calcularDistanciaEuclidiana(caracteristicas, jogador.getCaracteristicas()));
-            //testezinho
-            System.out.println("distancia: " + distancias.get(distancias.size() - 1) + " para o jogador: " + jogador.getApelido());
+            vizinhos.add(new Vizinho(jogador, calcularDistanciaEuclidiana(caracteristicas, jogador.getCaracteristicas())));
         }
 
-        return "classe prevista: ?";
+        Collections.sort(vizinhos);
+
+        int contadorCasual = 0;
+        int contadorRegular = 0;
+        int contadorRanqueado = 0;
+
+        for(int i = 0; i < k; i++) {
+            if(vizinhos.get(i).getJogador().getPerfil() == Perfil.CASUAL) {
+                contadorCasual++;
+            } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.REGULAR) {
+                contadorRegular++;
+            } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.RANQUEADO) {
+                contadorRanqueado++;
+            }
+        }
+
+        if (contadorCasual > contadorRegular && contadorCasual > contadorRanqueado) {
+            return Perfil.CASUAL;
+        } else if (contadorRegular > contadorCasual && contadorRegular > contadorRanqueado) {
+            return Perfil.REGULAR;
+        } else if (contadorRanqueado > contadorCasual && contadorRanqueado > contadorRegular) {
+            return Perfil.RANQUEADO;
+        } else if (contadorCasual == contadorRegular && contadorCasual > contadorRanqueado) {
+            for(int i = 0; i < k; i++) {
+                if(vizinhos.get(i).getJogador().getPerfil() == Perfil.CASUAL) {
+                    return Perfil.CASUAL;
+                } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.REGULAR) {
+                    return Perfil.REGULAR;
+                }
+            }
+        } else if (contadorCasual == contadorRanqueado && contadorCasual > contadorRegular) {
+            for (int i = 0; i < k; i++) {
+                if(vizinhos.get(i).getJogador().getPerfil() == Perfil.CASUAL) {
+                    return Perfil.CASUAL;
+                } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.RANQUEADO) {
+                    return Perfil.RANQUEADO;
+                }
+            }
+        } else if (contadorRegular == contadorRanqueado && contadorRegular > contadorCasual) {
+            for (int i = 0; i < k; i++) {
+                if(vizinhos.get(i).getJogador().getPerfil() == Perfil.REGULAR) {
+                    return Perfil.REGULAR;
+                } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.RANQUEADO) {
+                    return Perfil.RANQUEADO;
+                }
+            }
+        } else if (contadorCasual == contadorRegular && contadorRegular == contadorRanqueado) {
+            return vizinhos.get(0).getJogador().getPerfil();
+        }
+
+        throw new PrevisaoImpossivelException();
     }
 }
