@@ -40,7 +40,7 @@ public class Main {
             jogadores = new JogadorDAOJdbc(c).listarTodos();
             List<Jogador> embaralhados = new ArrayList<>(jogadores);
             Collections.shuffle(embaralhados, new Random(42)); //embaralha com uma semente fixa para que toda vez que a gente rode, de o msm resultado
-
+// Talvez seja bom transportar esse sistema de divisão e embaralhamento para outra classe, pra sõ chamar ela na main e pode alterar o valor de K sem loop no main. Farei a classe btw pra adicionar o loop lá
             List<Jogador> treino = new ArrayList<>(embaralhados.subList(0, 90));
             List<Jogador> validacao = new ArrayList<>(embaralhados.subList(90, 120));
             List<Jogador> teste = new ArrayList<>(embaralhados.subList(120, 150));

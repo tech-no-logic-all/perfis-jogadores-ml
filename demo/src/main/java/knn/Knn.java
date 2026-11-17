@@ -10,10 +10,12 @@ import java.util.List;
 public class Knn {
     private int k;
     private List<Jogador> dadosTreinamento;
+    private Metrica metrica;
 
     public Knn(int k, List<Jogador> dadosTreinamento) {
         this.k = k;
         this.dadosTreinamento = dadosTreinamento;
+        this.metrica = metrica;
     }
 
     //talvez private? nao sei
@@ -43,7 +45,7 @@ public class Knn {
         List<Vizinho> vizinhos = new ArrayList<>();
 
         for(Jogador jogador : dadosTreinamento) {
-            vizinhos.add(new Vizinho(jogador, calcularDistanciaEuclidiana(caracteristicas, jogador.getCaracteristicas())));
+            vizinhos.add(new Vizinho(jogador, metrica.calcular(caracteristicas, jogador.getCaracteristicas())));
         }
 
         Collections.sort(vizinhos);
