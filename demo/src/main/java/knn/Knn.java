@@ -1,25 +1,25 @@
 package knn;
 
-import modelo.Jogador;
-import modelo.Perfil;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import modelo.Jogador;
+import modelo.Perfil;
 
 public class Knn {
     private int k;
     private List<Jogador> dadosTreinamento;
     private Metrica metrica;
 
-    public Knn(int k, List<Jogador> dadosTreinamento) {
+    public Knn(int k, List<Jogador> dadosTreinamento, Metrica metrica) {
         this.k = k;
         this.dadosTreinamento = dadosTreinamento;
         this.metrica = metrica;
     }
 
     //talvez private? nao sei
-    public double calcularDistanciaEuclidiana(double[] p, double[] q) throws IllegalArgumentException {
+    /*public double calcularDistanciaEuclidiana(double[] p, double[] q) throws IllegalArgumentException {
 
         if (p.length != q.length) {
             throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho.");
@@ -38,7 +38,7 @@ public class Knn {
         }
         
         return Math.sqrt(soma);
-    }
+    }*/
 
     public Perfil prever(double[] caracteristicas) {
 
