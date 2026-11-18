@@ -24,7 +24,7 @@ public class ExperimentoKnn {
 
         for (int k : new int[]{1, 3, 5, 7, 9, 11}) {
             Knn knn = new Knn(k, treino, Metrica.EUCLIDIANA, normalizador);
-            System.out.printf("K=%d -> %.2f%%%n", k, Avaliador.acuracia(knn, teste) * 100);  
+            System.out.printf("K=%d -> %.2f%%%n", k, AvaliadorKnn.acuracia(knn, teste) * 100);  
         }
     }
 }

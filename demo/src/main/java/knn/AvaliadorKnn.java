@@ -21,4 +21,13 @@ public class AvaliadorKnn {
 
         return acuracia;
     }
+    public static int[][] matrizConfusao(Knn knn, List<Jogador> teste) {
+        int n = Perfil.values().length;
+        int[][] m = new int[n][n];
+        for (Jogador j : teste) {
+            Perfil previsto = knn.prever(j.getCaracteristicas());
+            m[j.getPerfil().ordinal()][previsto.ordinal()]++;
+        }
+        return m;
+    }
 }
