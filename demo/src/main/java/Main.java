@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,6 +15,10 @@ import java.util.Random;
 import modelo.Jogador;
 import modelo.Perfil;
 import sql.JogadorDAOJdbc;
+import kmeans.CenariosKMeans;
+import kmeans.PrepararKMeans;
+import kmeans.ExecutarKMeans;
+import knn.Knn;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -50,6 +55,14 @@ public class Main {
 
             Perfil perfilPredito = knn.prever(new double[]{10, 30, 50, 48});
             System.out.println("Perfil predito: " + perfilPredito);
+
+
+            // Prepara todos os jogadores do banco para o K-Means, sem dividir treino e teste
+            CenariosKMeans cenarios = PrepararKMeans.carregar(c);
+
+            // Executa com e sem normalizacao e salva os resultados e graficos na pasta target/kmeans
+            System.out.println("\nExperimentos do K-Means");
+            ExecutarKMeans.executar(cenarios, Path.of("target/kmeans"));
         }
     }
 

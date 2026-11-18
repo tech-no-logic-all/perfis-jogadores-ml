@@ -3,6 +3,7 @@ package knn;
 import java.util.List;
 
 import modelo.Jogador;
+import modelo.Perfil;
 
 public class AvaliadorKnn {
     
