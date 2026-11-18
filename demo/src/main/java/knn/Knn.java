@@ -13,10 +13,10 @@ public class Knn {
     private Metrica metrica;
     private NormalizadorMinMax normalizador;
 
-    public Knn(int k, List<Jogador> dadosTreinamento, Metrica metrica, NormalizadorMinMax normalizador) {
+    public Knn(int k, List<Jogador> dadosTreinamento, MedidaDeDistancia medida, NormalizadorMinMax normalizador) {
         this.k = k;
         this.dadosTreinamento = dadosTreinamento;
-        this.metrica = metrica;
+        this.medida = medida;
         this.normalizador = normalizador;
     }
 
@@ -39,7 +39,7 @@ public class Knn {
 
             double[] caracteristicasJogador = prepararCaracteristicas(jogador.getCaracteristicas());
 
-            vizinhos.add(new Vizinho(jogador, metrica.calcular(caracteristicas, caracteristicasJogador)));
+            vizinhos.add(new Vizinho(jogador, medida.calcular(caracteristicas, caracteristicasJogador)));
         }
 
         Collections.sort(vizinhos);
