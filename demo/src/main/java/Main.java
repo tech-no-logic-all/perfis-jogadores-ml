@@ -47,7 +47,7 @@ public class Main {
             jogadores = new JogadorDAOJdbc(c).listarTodos();
             List<Jogador> embaralhados = new ArrayList<>(jogadores);
             Collections.shuffle(embaralhados, new Random(42));
-            new ExperimentoKnn(jogadores).executar(5, new double[]{10, 30, 50, 48});
+            new ExperimentoKnn(jogadores).executar(3, new double[]{10, 30, 50, 48});
             Perfil perfilPredito = knn.prever(new double[]{10, 30, 50, 48});
             System.out.println("Perfil predito: " + perfilPredito);
 
