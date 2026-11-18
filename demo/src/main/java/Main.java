@@ -19,6 +19,7 @@ import kmeans.CenariosKMeans;
 import kmeans.PrepararKMeans;
 import kmeans.ExecutarKMeans;
 import knn.Knn;
+import knn.ExperimentoKnn;
 
 public class Main {
     public static void main(String[] args) throws Exception {
