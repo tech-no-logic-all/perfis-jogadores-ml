@@ -39,7 +39,8 @@ public class Knn {
 
             double[] caracteristicasJogador = prepararCaracteristicas(jogador.getCaracteristicas());
 
-            vizinhos.add(new Vizinho(jogador, medida.calcular(caracteristicas, caracteristicasJogador)));
+            double distancia = medida.calcular(caracteristicas, caracteristicasJogador);
+            vizinhos.add(new Vizinho(jogador, distancia));
         }
 
         Collections.sort(vizinhos);
