@@ -1,14 +1,14 @@
 package kmeans;
 
 
+// coloca as caracteristicas em uma escala comum usando minimo e maximo
+// o ajuste usa todos os dados
 
-// Coloca as caracteristicas em uma escala comum usando minimo e maximo
-// No K-Means o ajuste usa todos os dados; no KNN, apenas o treino
 public final class NormalizadorMinMax {
     private double[] minimos;
     private double[] maximos;
 
-    // Confere se temos uma matriz preenchida e com o mesmo tamanho em todas as linhas
+    // confere se existe uma matriz preenchida e com o mesmo tamanho em todas as linhas
     static int validar(double[][] dados) {
         if (dados == null || dados.length == 0 || dados[0] == null || dados[0].length == 0)
             throw new IllegalArgumentException("Matriz vazia ou nula.");

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 import modelo.Jogador;
+import modelo.Perfil;
 import sql.JogadorDAOJdbc;
 
 public class Main {
