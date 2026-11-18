@@ -27,5 +27,24 @@ public class ExperimentoKnn {
             Knn knn = new Knn(k, treino, Metrica.EUCLIDIANA, normalizador);
             System.out.printf("K=%d -> %.2f%%%n", k, AvaliadorKnn.acuracia(knn, teste) * 100);  
         }
+
+        // com/sem normalização x Euclidiana/Manhattan
+System.out.println("\nComparação com K=" + kEscolhido + ":");
+for (Metrica m : Metrica.values()) {
+    Knn com = new Knn(kEscolhido, treino, m, normalizador);
+    Knn sem = new Knn(kEscolhido, treino, m, null); // null = sem normalização
+    System.out.printf("%-11s com norm: %.2f%% | sem norm: %.2f%%%n", m,
+            AvaliadorKnn.acuracia(com, teste) * 100,
+            AvaliadorKnn.acuracia(sem, teste) * 100);
+}
+
+//matriz de confusão e jogador novo
+Knn escolhido = new Knn(kEscolhido, treino, Metrica.EUCLIDIANA, normalizador);
+
+System.out.println("\nMatriz de confusão (K=" + kEscolhido + ", euclidiana, normalizado):");
+AvaliadorKnn.imprimirMatriz(AvaliadorKnn.matrizConfusao(escolhido, teste));
+
+Perfil previsto = escolhido.prever(jogadorNovo);
+System.out.println("\nJogador novo " + Arrays.toString(jogadorNovo) + " -> " + previsto);
     }
 }

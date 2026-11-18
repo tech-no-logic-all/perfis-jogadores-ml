@@ -31,4 +31,16 @@ public class AvaliadorKnn {
         }
         return m;
     }
+
+    public static void imprimirMatriz(int[][] m) {
+    Perfil[] ps = Perfil.values();
+    System.out.printf("%-12s", "real\\prev");
+    for (Perfil p : ps) System.out.printf("%-10s", p);
+    System.out.println();
+    for (int i = 0; i < m.length; i++) {
+        System.out.printf("%-12s", ps[i]);
+        for (int j = 0; j < m.length; j++) System.out.printf("%-10d", m[i][j]);
+        System.out.println();
+    }
+}
 }
