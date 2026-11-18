@@ -7,6 +7,7 @@ import java.util.*;
 public class ExperimentoKnn {
     private final List<Jogador> treino;
     private final List<Jogador> teste;
+    private final NormalizadorMinMax normalizador;
 
   public ExperimentoKnn(List<Jogador> jogadores) {
         List<Jogador> embaralhados = new ArrayList<>(jogadores);

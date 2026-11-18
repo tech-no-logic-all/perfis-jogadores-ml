@@ -11,41 +11,35 @@ public class Knn {
     private int k;
     private List<Jogador> dadosTreinamento;
     private Metrica metrica;
+    private NormalizadorMinMax normalizador;
 
-    public Knn(int k, List<Jogador> dadosTreinamento, Metrica metrica) {
+    public Knn(int k, List<Jogador> dadosTreinamento, Metrica metrica, NormalizadorMinMax normalizador) {
         this.k = k;
         this.dadosTreinamento = dadosTreinamento;
         this.metrica = metrica;
+        this.normalizador = normalizador;
     }
 
-    //talvez private? nao sei
-    /*public double calcularDistanciaEuclidiana(double[] p, double[] q) throws IllegalArgumentException {
-
-        if (p.length != q.length) {
-            throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho.");
+    public double[] prepararCaracteristicas(double[] caracteristicas) {
+        //para facilitar quando for comparar os resultados com ou sem normalizacao
+        if(normalizador != null) {
+            return normalizador.transformar(caracteristicas);
+        } else {
+            return caracteristicas;
         }
-
-        double[] temporario = new double[p.length];
-
-        for (int i = 0; i < p.length; i++) {
-            temporario[i] = Math.pow(p[i] - q[i], 2);
-        }
-
-        double soma = 0;
-
-        for (double valor : temporario) {
-            soma += valor;
-        }
-        
-        return Math.sqrt(soma);
-    }*/
+    }
 
     public Perfil prever(double[] caracteristicas) {
 
-        List<Vizinho> vizinhos = new ArrayList<>();
+        caracteristicas = prepararCaracteristicas(caracteristicas);
 
+        List<Vizinho> vizinhos = new ArrayList<>();
+        
         for(Jogador jogador : dadosTreinamento) {
-            vizinhos.add(new Vizinho(jogador, metrica.calcular(caracteristicas, jogador.getCaracteristicas())));
+
+            double[] caracteristicasJogador = prepararCaracteristicas(jogador.getCaracteristicas());
+
+            vizinhos.add(new Vizinho(jogador, metrica.calcular(caracteristicas, caracteristicasJogador)));
         }
 
         Collections.sort(vizinhos);
@@ -55,12 +49,16 @@ public class Knn {
         int contadorRanqueado = 0;
 
         for(int i = 0; i < k; i++) {
-            if(vizinhos.get(i).getJogador().getPerfil() == Perfil.CASUAL) {
-                contadorCasual++;
-            } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.REGULAR) {
-                contadorRegular++;
-            } else if(vizinhos.get(i).getJogador().getPerfil() == Perfil.RANQUEADO) {
-                contadorRanqueado++;
+            switch (vizinhos.get(i).getJogador().getPerfil()) {
+                case CASUAL:
+                    contadorCasual++;
+                    break;
+                case REGULAR:
+                    contadorRegular++;
+                    break;
+                case RANQUEADO:
+                    contadorRanqueado++;
+                    break;
             }
         }
 
