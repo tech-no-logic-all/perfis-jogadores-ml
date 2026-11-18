@@ -45,13 +45,9 @@ public class Main {
                     + "WHERE horas_semana > 20 AND taxa_vitoria > 55 ORDER BY taxa_vitoria DESC");
 
             jogadores = new JogadorDAOJdbc(c).listarTodos();
-            List<Jogador> embaralhados = new ArrayList<>(jogadores);
-            Collections.shuffle(embaralhados, new Random(42));
-            new ExperimentoKnn(jogadores).executar(3, new double[]{10, 30, 50, 48});
-            Perfil perfilPredito = knn.prever(new double[]{10, 30, 50, 48});
-            System.out.println("Perfil predito: " + perfilPredito);
-
-
+            ExperimentoKnn experimento = new ExperimentoKnn(jogadores);
+            experimento.executar(3, new double[]{10, 30, 50, 48});
+            experimento.curvaDeAprendizagem(3, 30);
             // Prepara todos os jogadores do banco para o K-Means, sem dividir treino e teste
             CenariosKMeans cenarios = PrepararKMeans.carregar(c);
 

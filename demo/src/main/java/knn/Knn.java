@@ -10,7 +10,7 @@ import modelo.Perfil;
 public class Knn {
     private int k;
     private List<Jogador> dadosTreinamento;
-    private Metrica metrica;
+    private MedidaDeDistancia medida;
     private NormalizadorMinMax normalizador;
 
     public Knn(int k, List<Jogador> dadosTreinamento, MedidaDeDistancia medida, NormalizadorMinMax normalizador) {

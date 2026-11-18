@@ -9,7 +9,7 @@ public class Vizinho implements Comparable<Vizinho> {
 
     public Vizinho(Jogador jogador, double distancia) {
         this.jogador = jogador;
-        this. = distancia;
+        this.distancia = distancia;
     }
 
     public Jogador getJogador() {
