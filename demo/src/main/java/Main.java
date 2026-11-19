@@ -7,19 +7,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import modelo.Jogador;
-import modelo.Perfil;
-import sql.JogadorDAOJdbc;
 import kmeans.CenariosKMeans;
-import kmeans.PrepararKMeans;
 import kmeans.ExecutarKMeans;
-import knn.Knn;
+import kmeans.PrepararKMeans;
 import knn.ExperimentoKnn;
+import modelo.Jogador;
+import sql.JogadorDAOJdbc;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -47,7 +42,6 @@ public class Main {
             jogadores = new JogadorDAOJdbc(c).listarTodos();
             ExperimentoKnn experimento = new ExperimentoKnn(jogadores);
             experimento.executar(3, new double[]{10, 30, 50, 48});
-            experimento.curvaDeAprendizagem(3, 30);
             // Prepara todos os jogadores do banco para o K-Means, sem dividir treino e teste
             CenariosKMeans cenarios = PrepararKMeans.carregar(c);
 

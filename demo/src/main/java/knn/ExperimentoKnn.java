@@ -11,7 +11,7 @@ public class ExperimentoKnn {
 
   public ExperimentoKnn(List<Jogador> jogadores) {
         List<Jogador> embaralhados = new ArrayList<>(jogadores);
-        Collections.shuffle(embaralhados, new Random(42)); // semente fixa
+        Collections.shuffle(embaralhados, new Random(40)); // semente fixa
         int corte = (int) (embaralhados.size() * 0.8);
         treino = new ArrayList<>(embaralhados.subList(0, corte));
         teste = new ArrayList<>(embaralhados.subList(corte, embaralhados.size()));
