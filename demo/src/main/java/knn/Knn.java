@@ -97,6 +97,6 @@ public class Knn {
             return vizinhos.get(0).getJogador().getPerfil();
         }
 
-        throw new IllegalStateException("Não foi possível prever o perfil.");
+        throw new PrevisaoImpossivelException();
     }
 }

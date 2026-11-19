@@ -1,8 +1,13 @@
 package knn;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 import modelo.Jogador;
 import modelo.Perfil;
-import java.util.*;
 
 public class ExperimentoKnn {
     private final List<Jogador> treino;
@@ -31,6 +36,9 @@ public class ExperimentoKnn {
             System.out.printf("K=%d -> %.2f%%%n", k, AvaliadorKnn.acuracia(knn, teste) * 100);
         }
 
+        // Item 6: curva de aprendizagem para o K escolhido
+        imprimirCurvaAprendizagem(kEscolhido);
+
         // Item 4
         System.out.println("\nComparação com K=" + kEscolhido + ":");
         comparar("Euclidiana", euclidiana, kEscolhido);
@@ -52,5 +60,17 @@ public class ExperimentoKnn {
         System.out.printf("%-11s com norm: %.2f%% | sem norm: %.2f%%%n", nome,
                 AvaliadorKnn.acuracia(com, teste) * 100,
                 AvaliadorKnn.acuracia(sem, teste) * 100);
+    }
+
+    private void imprimirCurvaAprendizagem(int k) {
+        System.out.println("\nCurva de aprendizagem (K=" + k + ", euclidiana, normalizado):");
+        System.out.printf("%-18s%s%n", "Jogadores treino", "Acurácia no teste");
+
+        for (int quantidade = 15; quantidade <= treino.size(); quantidade += 15) {
+            List<Jogador> amostra = new ArrayList<>(treino.subList(0, quantidade));
+            NormalizadorMinMax normalizadorAmostra = new NormalizadorMinMax(amostra);
+            Knn knn = new Knn(k, amostra, new DistanciaEuclidiana(), normalizadorAmostra);
+            System.out.printf("%-18d%.2f%%%n", quantidade, AvaliadorKnn.acuracia(knn, teste) * 100);
+        }
     }
 }
